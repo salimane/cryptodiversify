@@ -1,0 +1,27 @@
+#!/usr/bin/env python
+# config.py - Configuaration File for CryptoDiversify
+
+config = {
+    'main_fiat': "EUR",
+    'base_coin': "bitcoin",
+    'swap_threshold_percentage': 5,
+    'top_size': 20,
+    'cap_ratio_limit': 0.1,
+    'min_trading_values': {
+        'bitcoin': 0.001,
+        'ripple': 10,
+        'ethereum': 0.01,
+        'bitcoin-cash': 0.001,
+        'cardano': 10,
+        'litecoin': 0.1,
+        'iota': 1,
+        'nem': 10,
+        'dash': 0.01,
+        'stellar': 10
+    },
+    'market_data_path': 'data/market.json',
+    'portfolio_data_path': 'data/portfolio.json',
+    'binance_api_key': '',
+    'binance_api_secret': '',
+    'debug': False
+}
