@@ -63,7 +63,14 @@ The code runs on your computer, the API keys are on your computer. The APIs keys
 * Trade-only API Keys, [generate an API Key](https://www.binance.com/userCenter/createApi.html) and assign relevant permissions. Only enable trade-only permissions.
 * $200 USD in Cryptocurrencies (The minimum $200 protects investors from Binance's minimum trading limit and make sure that diversified portfolios can be created properly.)
 * Git
-* A working [Python](https://www.python.org/) 3.6 installation with [virtualenv](https://virtualenv.pypa.io/en/stable/) and [pip](https://pypi.python.org/pypi/pip).
+* A working [Python](https://www.python.org/) 3.6.5 installation with [virtualenv](https://virtualenv.pypa.io/en/stable/) and [pip](https://pypi.python.org/pypi/pip).
+    ** 
+    ```shell
+    # Mac OS X
+    brew update
+    brew install pyenv pyenv-virtualenv
+    pyenv install 3.6.5
+    ```
 
 ## Setup
 
@@ -83,7 +90,7 @@ The code runs on your computer, the API keys are on your computer. The APIs keys
 
 ## Contributing
 
-Our goal is for this project to be used by the crytocurrencies community to maximize their investment, so we'd love your input! Got a question or an idea? Create an issue or a pull-request.
+Our goal is for this project to be used by the cryptocurrency community to maximize their investment, so we'd love your input! Got a question or an idea? Create an issue or a pull-request.
 
 ## Maintainers
 
