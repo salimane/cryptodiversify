@@ -2,6 +2,8 @@
 import json
 import logging
 import requests
+import sys
+import os
 
 from time import time
 logging.getLogger("requests").setLevel(logging.WARNING)
@@ -82,7 +84,6 @@ class Market:
                     'last_updated': int(d['last_updated']),
                     '24h_volume_usd': float(d['24h_volume_usd']),
                     'market_cap_usd': float(d['market_cap_usd']),
-                    'percent_change_1h': float(d['percent_change_1h']),
                     'percent_change_24h': float(d['percent_change_24h']),
                     'percent_change_7d': float(d['percent_change_7d'])
                 })
@@ -95,7 +96,9 @@ class Market:
                 log.debug("Dumping Data to data/market.json.")
                 json.dump(market, f, sort_keys=True, indent=4)
         except Exception as e:
-            log.error("Exception in requesting market: {}".format(e))
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            log.error("Exception in requesting market: {} {}: {}".format(exc_type, fname, exc_tb.tb_lineno))
             log.warning("No data from web source. Loading file")
             # Get last data from file
             with open(self.__config['market_data_path'], 'r') as f:

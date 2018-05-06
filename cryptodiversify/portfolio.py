@@ -3,6 +3,8 @@ from .market import Market
 from binance.client import Client
 import json
 import logging
+import sys
+import os
 
 from time import time
 log = logging.getLogger(__name__)
@@ -63,7 +65,9 @@ class Portfolio:
                 json.dump(portfolio, f, sort_keys=True, indent=4)
 
         except Exception as e:
-            log.error("Exception in requesting portfolio: {}".format(e))
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            log.error("Exception in requesting portfolio: {} {}: {}".format(exc_type, fname, exc_tb.tb_lineno))
             log.warning("No data from web source. Loading file")
             # Get last data from file
             with open(self.__config['portfolio_data_path'], 'r') as f:
