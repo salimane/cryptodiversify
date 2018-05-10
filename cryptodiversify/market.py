@@ -82,10 +82,11 @@ class Market:
                     'price_usd': float(d['price_usd']),
                     'rank': int(d['rank']),
                     'last_updated': int(d['last_updated']),
-                    '24h_volume_usd': float(d['24h_volume_usd']),
-                    'market_cap_usd': float(d['market_cap_usd']),
-                    'percent_change_24h': float(d['percent_change_24h']),
-                    'percent_change_7d': float(d['percent_change_7d'])
+                    '24h_volume_usd': float(d['24h_volume_usd']) if d['24h_volume_usd'] else 0.00,
+                    'market_cap_usd': float(d['market_cap_usd']) if d['market_cap_usd'] else 0.00,
+                    'percent_change_1h': float(d['percent_change_1h']) if d['percent_change_1h'] else 0.00,
+                    'percent_change_24h': float(d['percent_change_24h']) if d['percent_change_24h'] else 0.00,
+                    'percent_change_7d': float(d['percent_change_7d']) if d['percent_change_7d'] else 0.00
                 })
                 if d['symbol'] != 'USDT':
                     market['crypto_currencies'].append(d)
