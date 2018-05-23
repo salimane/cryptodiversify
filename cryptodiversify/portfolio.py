@@ -97,10 +97,8 @@ class Portfolio:
                 portfolio['crypto_currencies_hash'][coin['symbol']]['amount'] = 0
                 portfolio['crypto_currencies_hash'][coin['symbol']]['value_fiat'] = 0
 
-            percentage_current = percentage_optimal * \
-                portfolio['crypto_currencies_hash'][
-                    coin['symbol']
-                ]['amount'] / amount_optimal if amount_optimal > 0 else 0
+            percentage_current = portfolio['crypto_currencies_hash'][coin['symbol']]['amount'] * \
+                portfolio['crypto_currencies_hash'][coin['symbol']]['price_usd'] * 100 / portfolio['total_value_fiat']
 
             coin.update({
                 'percentage_optimal': percentage_optimal,
@@ -128,7 +126,8 @@ class Portfolio:
             if i < (config['top_size']):
                 continue
             portfolio['crypto_currencies'][i]['percentage_optimal'] = 0
-            portfolio['crypto_currencies'][i]['percentage_current'] = 0
+            portfolio['crypto_currencies'][i]['percentage_current'] = portfolio['crypto_currencies'][i]['amount'] * \
+                portfolio['crypto_currencies'][i]['price_usd'] * 100 / portfolio['total_value_fiat']
             portfolio['crypto_currencies'][i]['amount_optimal'] = 0
             portfolio['crypto_currencies'][i]['value_optimal'] = 0
             portfolio['crypto_currencies'][i]['divergence'] = - portfolio['crypto_currencies'][i]['amount']
