@@ -4,7 +4,7 @@
 config = {
     'main_fiat': "EUR",
     'base_coin': "bitcoin",
-    'swap_threshold_percentage': 5,
+    'swap_threshold_percentage': 10,
     'top_size': 20,
     'cap_ratio_limit': 0.1,
     'min_trading_values': {
