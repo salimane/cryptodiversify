@@ -36,7 +36,7 @@ class Portfolio:
 
             balances = list(
                 filter(
-                    lambda x: float(x['free']) > 0 or float(x['locked']) > 0,
+                    lambda x: (float(x['free']) > 0 or float(x['locked']) > 0) and x['asset'] not in ['EON', 'GAS'],
                     self.__binance_client.get_account()['balances']
                 )
             )
