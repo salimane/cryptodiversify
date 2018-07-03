@@ -36,14 +36,18 @@ class Portfolio:
 
             balances = list(
                 filter(
-                    lambda x: (float(x['free']) > 0 or float(x['locked']) > 0) and x['asset'] not in ['EON', 'GAS'],
+                    lambda x: (float(x['free']) > 0 or float(x['locked']) > 0) and x['asset'] not in ['GAS'],
                     self.__binance_client.get_account()['balances']
                 )
             )
 
             # Create a new portfolio and save it.
             for cc in balances:
-                coin = self.__market['crypto_currencies_hash'][cc['asset']]
+                try:
+                    coin = self.__market['crypto_currencies_hash'][cc['asset']]
+                except KeyError:
+                    print(cc['asset'] + " is not listed on coinmarketcap")
+                    next
                 coin.update({
                     'amount': float(cc['free']),
                     'value_fiat': coin['price_usd'] * float(cc['free']),
