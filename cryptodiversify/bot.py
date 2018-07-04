@@ -90,7 +90,7 @@ class CryptoDiversify:
     def __Run(self):
         sleep(5)
         swap_threshold_percentage = self.__config['swap_threshold_percentage']
-        while True:
+        while True and self.__portfolio.get('crypto_currencies', None):
             log.debug("CryptoDiversify running.")
             print("\n{:<17} {:<10} {:<10} {:<20} {:<15} {:<20} {:<20} \n".format(
                 'Coin', '% Optimal', '% Current', 'Optimal Amount',

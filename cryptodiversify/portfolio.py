@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 from .market import Market
 from binance.client import Client
+from binance.exceptions import BinanceAPIException
 import json
 import logging
 import sys
@@ -33,13 +34,16 @@ class Portfolio:
                 'crypto_currencies_hash': {},
                 'total_value_fiat': 0
             }
-
-            balances = list(
-                filter(
-                    lambda x: (float(x['free']) > 0 or float(x['locked']) > 0) and x['asset'] not in ['GAS'],
-                    self.__binance_client.get_account()['balances']
+            try:
+                balances = list(
+                    filter(
+                        lambda x: (float(x['free']) > 0 or float(x['locked']) > 0) and x['asset'] not in ['GAS'],
+                        self.__binance_client.get_account()['balances']
+                    )
                 )
-            )
+            except BinanceAPIException as e:
+                print(e)
+                sys.exit()
 
             # Create a new portfolio and save it.
             for cc in balances:
