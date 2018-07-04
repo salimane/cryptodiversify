@@ -51,7 +51,7 @@ class Portfolio:
                     coin = self.__market['crypto_currencies_hash'][cc['asset']]
                 except KeyError:
                     print(cc['asset'] + " is not listed on coinmarketcap")
-                    next
+                    continue
                 coin.update({
                     'amount': float(cc['free']),
                     'value_fiat': coin['price_usd'] * float(cc['free']),

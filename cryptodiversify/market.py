@@ -88,7 +88,7 @@ class Market:
                     'percent_change_24h': float(d['percent_change_24h']) if d['percent_change_24h'] else 0.00,
                     'percent_change_7d': float(d['percent_change_7d']) if d['percent_change_7d'] else 0.00
                 })
-                if d['symbol'] != 'USDT':
+                if d['symbol'] not in ['USDT', 'XTZ']:
                     market['crypto_currencies'].append(d)
                     market['crypto_currencies_hash'][d['symbol']] = d
 
