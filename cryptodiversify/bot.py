@@ -92,6 +92,13 @@ class CryptoDiversify:
         swap_threshold_percentage = self.__config['swap_threshold_percentage']
         while True and self.__portfolio.get('crypto_currencies', None):
             log.debug("CryptoDiversify running.")
+            if self.__portfolio.get('crypto_not_coinmarketcap', None) and len(
+                    self.__portfolio['crypto_not_coinmarketcap']) > 0:
+                print(
+                    "\n" +
+                    ', '.join(
+                        self.__portfolio['crypto_not_coinmarketcap']) +
+                    " are not listed on coinmarketcap")
             print("\n{:<17} {:<10} {:<10} {:<20} {:<15} {:<20} {:<20} \n".format(
                 'Coin', '% Optimal', '% Current', 'Optimal Amount',
                 '% Divergence', 'BUY', 'SELL'
