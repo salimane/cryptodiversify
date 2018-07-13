@@ -16,7 +16,9 @@ class Portfolio:
         self.__config = config
         self.__binance_client = Client(
             self.__config['binance_api_key'],
-            self.__config['binance_api_secret'])
+            self.__config['binance_api_secret'],
+            {"timeout": self.__config.get('binance_api_timeout', 20)})
+
         self.__market = Market(
             self.__config
         ).request_market() if market is not None else market

@@ -21,6 +21,7 @@ config = {
     },
     'market_data_path': 'data/market.json',
     'portfolio_data_path': 'data/portfolio.json',
+    "binance_api_timeout": 20,
     'binance_api_key': '',
     'binance_api_secret': '',
     'debug': False
