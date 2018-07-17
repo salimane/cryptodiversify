@@ -17,7 +17,7 @@ class Portfolio:
         self.__binance_client = Client(
             self.__config['binance_api_key'],
             self.__config['binance_api_secret'],
-            {"timeout": self.__config.get('binance_api_timeout', 20)})
+            {"timeout": self.__config.get('binance_api_timeout', 60)})
 
         self.__market = Market(
             self.__config
@@ -41,7 +41,7 @@ class Portfolio:
                 balances = list(
                     filter(
                         lambda x: (float(x['free']) > 0 or float(x['locked']) > 0) and x['asset'] not in ['GAS'],
-                        self.__binance_client.get_account()['balances']
+                        self.__binance_client.get_account(recvWindow=60000)['balances']
                     )
                 )
             except BinanceAPIException as e:
