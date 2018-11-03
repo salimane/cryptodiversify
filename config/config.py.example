@@ -21,6 +21,7 @@ config = {
     },
     'market_data_path': 'data/market.json',
     'portfolio_data_path': 'data/portfolio.json',
+    'crypto_not_binance': ['USDT', 'XTZ', 'DOGE', 'MKR'],
     "binance_api_timeout": 60,
     'binance_api_key': '',
     'binance_api_secret': '',

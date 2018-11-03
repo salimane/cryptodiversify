@@ -88,7 +88,7 @@ class Market:
                     'percent_change_24h': float(d['percent_change_24h']) if d['percent_change_24h'] else 0.00,
                     'percent_change_7d': float(d['percent_change_7d']) if d['percent_change_7d'] else 0.00
                 })
-                if d['symbol'] not in ['USDT', 'XTZ']:
+                if d['symbol'] not in self.__config.get('crypto_not_binance', []):
                     market['crypto_currencies'].append(d)
                     market['crypto_currencies_hash'][d['symbol']] = d
 
@@ -96,7 +96,7 @@ class Market:
             with open(self.__config['market_data_path'], 'w') as f:
                 log.debug("Dumping Data to data/market.json.")
                 json.dump(market, f, sort_keys=True, indent=4)
-        except Exception as e:
+        except Exception:
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             log.error("Exception in requesting market: {} {}: {}".format(exc_type, fname, exc_tb.tb_lineno))

@@ -41,7 +41,7 @@ The algorithm takes the top 20 coins by [market capitalization](https://coinmark
 
 Then it caps every coin to be at most 10% of the total portfolio value. Anything above 10% gets redistributed to all the coins below by weighted market capitalization until the entire sum of the portfolio adds up to 100%.
 
-It then fetches your current portofolio on the [Binance](https://www.binance.com/?ref=22709520) exchange and suggests a buy and sell strategy based on the divergence of the % allocated if the divergence is greater than 5%.
+It then fetches your current portofolio on the [Binance](https://www.binance.com/?ref=22709520) exchange and suggests a buy and sell strategy based on the divergence of the % allocated if the divergence is greater than 10%.
 
 ## Cost / Benefit
 

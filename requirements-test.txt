@@ -1,6 +1,6 @@
 -r requirements.txt
-flake8==3.5.0
+flake8==3.6.0
 mock==2.0.0
-pytest==3.5.0
-pytest-cov==2.5.1
-virtualenv==15.2.0
+pytest==3.9.3
+pytest-cov==2.6.0
+virtualenv==16.1.0

@@ -75,7 +75,7 @@ class Portfolio:
             with open("data/portfolio.json", 'w') as f:
                 json.dump(portfolio, f, sort_keys=True, indent=4)
 
-        except Exception as e:
+        except Exception:
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             log.error("Exception in requesting portfolio: {} {}: {}".format(exc_type, fname, exc_tb.tb_lineno))
