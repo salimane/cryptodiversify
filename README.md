@@ -69,7 +69,7 @@ The code runs on your computer, the API keys are on your computer. The APIs keys
     # Mac OS X
     brew update
     brew install pyenv pyenv-virtualenv
-    pyenv install 3.6.5
+    pyenv install 3.7.1
     ```
 
 ## Setup
