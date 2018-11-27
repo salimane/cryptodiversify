@@ -110,7 +110,9 @@ class Market:
     @staticmethod
     def get_binance_symbol(symbol):
         if symbol == 'BCH':
-            return 'BCC'
+            return 'BCHABC'
+        if symbol == 'BSV':
+            return 'BCHSV'
         if symbol == 'MIOTA':
             return 'IOTA'
 
