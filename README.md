@@ -1,7 +1,7 @@
 # cryptodiversify
 
 [![Build Status](https://travis-ci.org/salimane/cryptodiversify.svg?branch=master)](https://travis-ci.org/salimane/cryptodiversify)
-[![Maintenance](https://img.shields.io/maintenance/yes/2018.svg)](https://github.com/salimane/cryptodiversify/commits/master)
+[![Maintenance](https://img.shields.io/maintenance/yes/2019.svg)](https://github.com/salimane/cryptodiversify/commits/master)
 
 Automatically check your portfolio on the [Binance](https://www.binance.com/?ref=22709520) exchange and advice you on rebalancing your portfolio into the top 20 cryptocurrencies by [market capitalization](https://coinmarketcap.com/).
 
