@@ -16,6 +16,6 @@ log = logging.getLogger()
 bot = CryptoDiversify(config)
 bot.start()
 
-# Keep the main thread alive.
+# Keep the main thread alive
 while True:
     sleep(1)
