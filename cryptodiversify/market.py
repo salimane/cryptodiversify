@@ -107,7 +107,6 @@ class Market:
 
         return market
 
-
     def request_market_web_api(self):
         try:
             response = requests.get("https://web-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?convert=USD,BTC&cryptocurrency_type=all&limit=5000&sort=market_cap&sort_dir=desc&start=1")
