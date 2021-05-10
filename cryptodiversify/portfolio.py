@@ -21,7 +21,7 @@ class Portfolio:
 
         self.__market = Market(
             self.__config
-        ).request_market() if market is not None else market
+        ).get_market() if market is not None else market
         self.__portfolio = {}
         # TODO trade https://github.com/sammchardy/python-binance/issues/139
 

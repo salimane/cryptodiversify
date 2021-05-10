@@ -15,7 +15,7 @@ class Market:
         self.__config = config
 
     def get_market(self):
-        return self.request_market()
+        return self.request_market_web_api()
 
     def get_top_market(self, market, config):
         return list(sorted(market['crypto_currencies'], key=lambda alloc: alloc['rank']))[
@@ -107,10 +107,57 @@ class Market:
 
         return market
 
+
+    def request_market_web_api(self):
+        try:
+            response = requests.get("https://web-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?convert=USD,BTC&cryptocurrency_type=all&limit=5000&sort=market_cap&sort_dir=desc&start=1")
+            data = json.loads(response.content)
+
+            # Convert data json into dict
+            log.debug("Data obtained from web source.")
+            market = {
+                'crypto_currencies': [],
+                'crypto_currencies_hash': {},
+                'last_updated': int(time())
+            }
+
+            for d in data['data']:
+                d.update({
+                    'symbol': self.get_binance_symbol(d['symbol']),
+                    'price_btc': float(d['quote']['BTC']['price']) if d['quote']['BTC']['price'] else 0.00,
+                    'price_usd': float(d['quote']['USD']['price']) if d['quote']['USD']['price'] else 0.00,
+                    'rank': int(d['cmc_rank']),
+                    'last_updated': d['last_updated'],
+                    '24h_volume_usd': float(d['quote']['USD']['volume_24h']) if d['quote']['USD']['volume_24h'] else 0.00,
+                    'market_cap_usd': float(d['quote']['USD']['market_cap']) if d['quote']['USD']['market_cap'] else 0.00,
+                    'percent_change_1h': float(d['quote']['USD']['percent_change_1h']) if d['quote']['USD']['percent_change_1h'] else 0.00,
+                    'percent_change_24h': float(d['quote']['USD']['percent_change_24h']) if d['quote']['USD']['percent_change_24h'] else 0.00,
+                    'percent_change_7d': float(d['quote']['USD']['percent_change_7d']) if d['quote']['USD']['percent_change_7d'] else 0.00
+                })
+                if d['symbol'] not in self.__config.get('crypto_not_binance', []):
+                    market['crypto_currencies'].append(d)
+                    market['crypto_currencies_hash'][d['symbol']] = d
+
+            # Output collected data into file
+            with open(self.__config['market_data_path'], 'w') as f:
+                log.debug("Dumping Data to data/market.json.")
+                json.dump(market, f, sort_keys=True, indent=4)
+        except Exception:
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            log.error("Exception in requesting market: {} {}: {}".format(exc_type, fname, exc_tb.tb_lineno))
+            log.error(exc_obj)
+            log.warning("No data from web source. Loading file")
+            # Get last data from file
+            with open(self.__config['market_data_path'], 'r') as f:
+                market = json.load(f)
+
+        return market
+
     @staticmethod
     def get_binance_symbol(symbol):
-        if symbol == 'BCH':
-            return 'BCHABC'
+        # if symbol == 'BCH':
+        #     return 'BCHABC'
         if symbol == 'BSV':
             return 'BCHSV'
         if symbol == 'MIOTA':

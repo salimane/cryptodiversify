@@ -18,7 +18,7 @@ class CryptoDiversify:
         self.__threads = []
 
         self.__market_obj = Market(config)
-        self.__market = self.__market_obj.request_market()
+        self.__market = self.__market_obj.get_market()
         self.__portfolio_obj = Portfolio(config, self.__market)
         self.__portfolio = {}
 
@@ -63,7 +63,7 @@ class CryptoDiversify:
 
     def __MarketUpdater(self):
         while True:
-            self.__market = self.__market_obj.request_market()
+            self.__market = self.__market_obj.get_market()
             log.debug("Market updated.")
             sleep(10)
 
@@ -99,8 +99,8 @@ class CryptoDiversify:
                     ', '.join(
                         self.__portfolio['crypto_not_coinmarketcap']) +
                     " are not listed on coinmarketcap")
-            print("\n{:<17} {:<10} {:<10} {:<20} {:<15} {:<20} {:<20} \n".format(
-                'Coin', '% Optimal', '% Current', 'Optimal Amount',
+            print("\n{:<17} {:<10} {:<10} {:<15} {:<15} {:<20} {:<20} \n".format(
+                'Coin', 'Symbol', '% Optimal', '% Current', 'Value',
                 '% Divergence', 'BUY', 'SELL'
             )
             )
@@ -112,17 +112,18 @@ class CryptoDiversify:
                     coin['amount_optimal'],
                     swap_threshold_percentage
                 )
-                print("{:<17} {:<10.2f} {:<10.2f} {:<20} {:<15.2f} {:<20} {:<20} ".format(
-                    coin['id'],
+                print("{:<17} {:<10} {:<10.2f} {:<15.2f} ${:<15.2f} {:<15.2f} {:<20} {:<20} ".format(
+                    coin['name'],
+                    coin['symbol'],
                     coin['percentage_optimal'],
                     coin['percentage_current'],
-                    coin['amount_optimal'],
+                    coin['value_fiat'],
                     coin['divergence_percentage'],
                     decision['buy'],
                     decision['sell']
                 )
                 )
-            print("\n{:<25} ${:<18}".format(
+            print("\n{:<25} ${:<18.2f}".format(
                 'Estimated Total Value:', self.__portfolio['total_value_fiat']
             )
             )
