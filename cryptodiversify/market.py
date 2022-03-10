@@ -109,8 +109,24 @@ class Market:
 
     def request_market_web_api(self):
         try:
-            response = requests.get("https://web-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?convert=USD,BTC&cryptocurrency_type=all&limit=5000&sort=market_cap&sort_dir=desc&start=1")
-            data = json.loads(response.content)
+            # url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest'
+            url = 'https://web-api.coinmarketcap.com/v1/cryptocurrency/listings/latest'
+            parameters = {
+                'convert': 'USD',
+                'cryptocurrency_type': 'all',
+                'limit': '5000',
+                'sort': 'market_cap',
+                'sort_dir': 'desc',
+                'start': '1'
+            }
+            headers = {
+                'Accepts': 'application/json'
+                #  'X-CMC_PRO_API_KEY': '4b794190-8d73-4bc6-8fcc-fed9e795403d',
+            }
+            session = requests.Session()
+            session.headers.update(headers)
+            response = session.get(url, params=parameters)
+            data = json.loads(response.text)
 
             # Convert data json into dict
             log.debug("Data obtained from web source.")
@@ -123,7 +139,6 @@ class Market:
             for d in data['data']:
                 d.update({
                     'symbol': self.get_binance_symbol(d['symbol']),
-                    'price_btc': float(d['quote']['BTC']['price']) if d['quote']['BTC']['price'] else 0.00,
                     'price_usd': float(d['quote']['USD']['price']) if d['quote']['USD']['price'] else 0.00,
                     'rank': int(d['cmc_rank']),
                     'last_updated': d['last_updated'],

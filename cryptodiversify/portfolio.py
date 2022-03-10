@@ -23,7 +23,6 @@ class Portfolio:
             self.__config
         ).get_market() if market is not None else market
         self.__portfolio = {}
-        # TODO trade https://github.com/sammchardy/python-binance/issues/139
 
     def get_portfolio(self):
         return self.__initialize_portfolio()
@@ -47,6 +46,11 @@ class Portfolio:
             except BinanceAPIException as e:
                 print(e)
                 sys.exit()
+
+            # add offline crypto portfolio
+            if self.__config['offline_crypto']:
+                for key, value in self.__config['offline_crypto'].items():
+                    balances.append({'asset': key, 'free': str(value), 'locked': '0.00000000'})
 
             # Create a new portfolio and save it.
             for cc in balances:

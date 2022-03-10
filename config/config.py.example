@@ -12,5 +12,6 @@ config = {
     'binance_api_timeout': 60,
     'binance_api_key': '',
     'binance_api_secret': '',
+    'offline_crypto': {},
     'debug': False
 }
